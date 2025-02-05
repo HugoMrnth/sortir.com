@@ -16,7 +16,6 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800
         main:
-            lazy: true
             provider: app_user_provider
             form_login:
                 login_path: app_login
@@ -24,6 +23,8 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+                # Optionnel : définir une redirection après la déconnexion
+                target: /login
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -36,9 +37,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        # Require authentication for all other routes
+        - { path: ^/, roles: ROLE_USER } # Permet l'accès à la page de connexion sans être authentifié
 when@test:
     security:
         password_hashers:

@@ -16,7 +16,9 @@
     </head>
     <body class="flex flex-col">
     <header>
-        {% include("layout/_nav.html.twig") %}
+        {% if app.user %}
+            {% include("layout/_nav.html.twig") %}
+        {% endif%}
     </header>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -29,8 +31,4 @@
         {% block body %}{% endblock %}
     </main>
     </body>
-
-    <footer class="navbar navbar-expand-lg d-flex justify-content-center p-4 bg-white border-gray-200 dark:bg-gray-900"">
-        &copy; Sortir.com {{ "now" | date("Y") }}
-    </footer>
 </html>
