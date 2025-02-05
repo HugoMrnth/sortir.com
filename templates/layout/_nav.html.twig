@@ -24,9 +24,17 @@
                 <li>
                     <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Mon Profil</a>
                 </li>
+                {% if app.user %}
+
                 <li>
-                    <a href="#" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Se déconnecter</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a  class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" aria-current="page" href="{{ path('app_login') }}">Se connecter</a>
+                </li>
+                {% endif %}
+
             </ul>
         </div>
     </div>
