@@ -1,20 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1> Les sorties (titre à modifier) </h1>
-{#    <div>#}
-{#        {% for sortie in sorties %}#}
-{#            <p>#}
-{#                {{ sortie.nom }}#}
-{#                <a class=""#}
-{#                   href="{{ path('wish_detail', {id: wish.id}) }}"#}
-{#                   title="Go to wish details"#}
-{#                >#}
-{#                    {{ wish.title }} [{{ wish.category ? wish.category.name:'-'}}]#}
-{#                </a>#}
-{#            </p>#}
-{#        {% endfor %}#}
-{#    </div>#}
+{# TODO : date du jour + Participant à ajouter  #}
+    <h1> Filtrer les sorties </h1>
+{# TODO : select Site + recherche par sortie.nom + recherche entre deux dates
+    + checkbox organisateur / inscrit / pas inscrit / sorties passées dans limite mois dernier
+    + Bouton rechercher  #}
+
+    {# Tableau des résultats   #}
+    <div>
+        <p>Nom de la sortie - Date de la sortie - Date de clôture - Inscrits/place - État - Inscrit - Organisateur - Actions</p>
+        {% for sortie in sorties %}
+            <p>
+                {{ sortie.nom }}
+                {{ sortie.dateDebut | date("d-m-Y H:i") }}
+                {{ sortie.dateCloture | date("d-m-Y G:i") }}
+                nb inscrits / {{ sortie.jauge }}
+                {{ sortie.etat.libelle }}
+                Colone inscrit : oui non
+                {# TODO : si utilisateur conneté dans sortie.participants alors afficher X dans colonne #}
+                {# TODO : sortie.organisateur.nom #}
+                {# TODO :
+                    si utilisateur connecté = organisateur
+                        si sortie.etat = "en création" alors afficher "Modifier" et "Publier"
+                        sinon si sortie.etat = "Ouvert" alors afficher "Afficher" et "Annuler"
+                    sinon afficher "Afficher"
+                    si utilisateur connecté est dans sortie.participants alors afficher "Se désister"
+                    sinon si état < clôturé et inscription < jauge afficher "S'inscrire"
+                #}
+            </p>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block title %}
