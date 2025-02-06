@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1> Les sorties (titre à modifier) </h1>
+{#    <div>#}
+{#        {% for sortie in sorties %}#}
+{#            <p>#}
+{#                {{ sortie.nom }}#}
+{#                <a class=""#}
+{#                   href="{{ path('wish_detail', {id: wish.id}) }}"#}
+{#                   title="Go to wish details"#}
+{#                >#}
+{#                    {{ wish.title }} [{{ wish.category ? wish.category.name:'-'}}]#}
+{#                </a>#}
+{#            </p>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{% endblock %}
+
+{% block title %}
+    Sorties | {{ parent() }}
+{% endblock %}
