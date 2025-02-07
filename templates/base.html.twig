@@ -14,8 +14,8 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="flex flex-col">
-    <header>
+    <body class="flex flex-col h-screen">
+    <header class="flex-none">
         {% if app.user %}
             {% include("layout/_nav.html.twig") %}
         {% endif%}
@@ -27,7 +27,7 @@
             </div>
         {% endfor %}
     {% endfor %}
-    <main class="p-4 flex-grow-1">
+    <main class="p-4 flex flex-col flex-grow min-h-0">
         {% block body %}{% endblock %}
     </main>
     </body>
