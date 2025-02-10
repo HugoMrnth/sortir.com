@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="flex w-3/4 m-auto py-6">
+            <img src="https://robohash.org/mail@ashallendesign.co.uk" alt="" class="flex-shrink-0 object-cover h-40 rounded-sm sm:h-96 dark:bg-gray-500 aspect-square">
+            <div class="ml-10">
+                <h2 class="text-4xl font-semibold text-center">{{ participant.username }}</h2>
+                <div class="flex flex-col mt-5">
+                    <p class="text-xl my-5">Prénom: <span class="ml-4">{{ participant.prenom }}</span></p>
+                    <p class="text-xl my-5">Nom: <span class="ml-4">{{ participant.nom }}</span></p>
+                    <p class="text-xl my-5">Téléphone: <span class="ml-4">{{ participant.telephone }}</span></p>
+                    <p class="text-xl my-5">Email: <span class="ml-4">{{ participant.email }}</span></p>
+                </div>
+                <div class="flex">
+                    <a href="{{ path('participant_edit', {id: app.user.id}) }}">
+                        <button class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">editer</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
