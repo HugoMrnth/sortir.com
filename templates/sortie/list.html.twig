@@ -72,7 +72,9 @@
             {% for sortie in sorties %}
                 <tr class="odd:bg-white even:bg-gray-50 border-b border-gray-200">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                        {{ sortie.nom }}
+                        <a href="{{ path('sortie_show', {id: sortie.id}) }}" class=" hover:underline">
+                            {{ sortie.nom }}
+                        </a>
                     </th>
                     <td class="px-6 py-4">
                         {{ sortie.dateDebut | date("d-m-Y H:i") }}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <div class="container w-full mx-auto py-6">
+                <h2 class="text-xl font-semibold text-center">{{ sortie.nom }}</h2>
+                <div class="grid grid-cols-2 gap-4 justify-items-center">
+                    <div class="flex flex-col mt-5">
+                        <p class="text-md my-5">Date et heure de la sortie: <span class="ml-4">le {{ sortie.dateDebut|date("d/m/Y") }} à {{ sortie.dateDebut|date("H:i") }}</span></p>
+                        <p class="text-md my-5">Date limit d'inscription: <span class="ml-4">le {{ sortie.dateCloture|date("d/m/Y") }}</span></p>
+                        <p class="text-md my-5">Nombre de places: <span class="ml-4">{{ sortie.jauge }}</span></p>
+                        <p class="text-md my-5">Durée: <span class="ml-4">{{ sortie.duree }} minutes</span></p>
+                        <p class="text-md my-5">Description et infos: <span class="ml-4">{{ sortie.description }}</span></p>
+                    </div>
+                    <div class="flex flex-col mt-5">
+                        <p class="text-md my-5">Lieu: <span class="ml-4">{{ sortie.lieu.nom }}</span></p>
+                        <p class="text-md my-5">Rue: <span class="ml-4">{{ sortie.lieu.rue|default('pas de rue indiquée')}}</span></p>
+                        <p class="text-md my-5">Ville: <span class="ml-4">{{ sortie.lieu.ville.nom }}</span></p>
+                        <p class="text-md my-5">Code postal: <span class="ml-4">{{ sortie.lieu.ville.codePostal }}</span></p>
+                        <p class="text-md my-5">Latitude: <span class="ml-4">{{ sortie.lieu.latitude }}</span></p>
+                        <p class="text-md my-5">Longitude: <span class="ml-4">{{ sortie.lieu.longitude }}</span></p>
+                    </div>
+                </div>
+        </div>
+
+        <h2 class="text-md font-semibold mx-auto mb-2">Liste des participant inscrits:</h2>
+        <div class="container mx-auto w-1/2 shadow-md sm:rounded-lg flex-grow overflow-scroll flex justify-start">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Pseudo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                       Nom
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for participant in sortie.participants %}
+                    <tr class="odd:bg-white even:bg-gray-50 border-b border-gray-200">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                            <a href="{{ path('sortie_show', {id: sortie.id}) }}" class=" hover:underline">
+                                {{ participant.username }}
+                            </a>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ participant.prenom  }}  {{ participant.nom  }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
