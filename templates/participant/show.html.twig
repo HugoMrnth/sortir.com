@@ -5,12 +5,12 @@
         <div class="flex w-3/4 m-auto py-6">
             <img src="https://robohash.org/mail@ashallendesign.co.uk" alt="" class="flex-shrink-0 object-cover h-40 rounded-sm sm:h-96 dark:bg-gray-500 aspect-square">
             <div class="ml-10">
-                <h2 class="text-4xl font-semibold text-center">{{ participant.username }}</h2>
+                <h2 class="text-2xl font-semibold text-center">{{ participant.username }}</h2>
                 <div class="flex flex-col mt-5">
-                    <p class="text-xl my-5">Prénom: <span class="ml-4">{{ participant.prenom }}</span></p>
-                    <p class="text-xl my-5">Nom: <span class="ml-4">{{ participant.nom }}</span></p>
-                    <p class="text-xl my-5">Téléphone: <span class="ml-4">{{ participant.telephone }}</span></p>
-                    <p class="text-xl my-5">Email: <span class="ml-4">{{ participant.email }}</span></p>
+                    <p class="text-md my-5">Prénom: <span class="ml-4">{{ participant.prenom }}</span></p>
+                    <p class="text-md my-5">Nom: <span class="ml-4">{{ participant.nom }}</span></p>
+                    <p class="text-md my-5">Téléphone: <span class="ml-4">{{ participant.telephone }}</span></p>
+                    <p class="text-md my-5">Email: <span class="ml-4">{{ participant.email }}</span></p>
                 </div>
                 <div class="flex">
                     <a href="{{ path('participant_edit', {id: app.user.id}) }}">
