@@ -3,20 +3,19 @@
 namespace App\DataFixtures;
 
 use App\Entity\Participant;
-use App\Entity\Wish;
+use App\Entity\Site;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public function __construct(private readonly UserPasswordHasherInterface $userPasswordHasher)
     { }
     public function load(ObjectManager $manager): void
     {
-
 
         $admin = new Participant();
         $admin->setUsername('admin');
@@ -27,8 +26,15 @@ class AppFixtures extends Fixture
         $admin->setPrenom("Didier");
         $admin->setTelephone("0123456789");
         $admin->setActif(true);
+        $admin->setSite($this->getReference('site-Saint-Herblain', Site::class));
         $manager->persist($admin);
 
         $manager->flush();
     }
+
+    public function getDependencies(): array
+    {
+        return [SiteFixtures::class];
+    }
+
 }
