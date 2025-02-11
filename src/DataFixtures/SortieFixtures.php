@@ -16,9 +16,6 @@ class SortieFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = \Faker\Factory::create("fr_FR");
 
-        $etatRepository = $manager->getRepository(Etat::class);
-        $allEtats = $etatRepository->findAll();
-
         $lieuRepository = $manager->getRepository(Lieu::class);
         $allLieux = $lieuRepository->findAll();
 
@@ -27,22 +24,55 @@ class SortieFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 30; $i++) {
             $dateDebut = $faker->dateTimeBetween("-2 months", "+2 months");
-            $dateCloture = $faker->dateTimeInInterval($dateDebut,"-2 days");
-            $randomParticipants = $faker->randomElements($allParticipants, $faker->numberBetween(0, min(15, count($allParticipants))));
+            $dateCloture = $faker->dateTimeInInterval($dateDebut, "-2 days");
+            $jauge = $faker->numberBetween($min = 1, $max = 15);
+            $duree = $faker->numberBetween($min = 30, $max = 240);
+            $organisateur = $faker->randomElement($allParticipants);
 
             $sortie = new Sortie();
-            $sortie->setNom($faker->realTextBetween(1, 30, 3))
+            $sortie->setNom($faker->realTextBetween(1, 25, 3))
                 ->setDateDebut(\DateTimeImmutable::createFromMutable($dateDebut))
                 ->setDateCloture(\DateTimeImmutable::createFromMutable($dateCloture))
-                ->setJauge($faker->numberBetween($min = 1, $max = 15))
-                ->setDuree($faker->numberBetween($min = 30, $max = 240))
+                ->setJauge($jauge)
+                ->setDuree($duree)
                 ->setDescription($faker->optional(0.8)->text(500))
-                ->setEtat($faker->randomElement($allEtats))
                 ->setLieu($faker->randomElement($allLieux))
-                ->setOrganisateur($faker->randomElement($allParticipants));
+                ->setOrganisateur($organisateur)
+                ->setSite($organisateur->getSite());
 
-            foreach ($randomParticipants as $participant) {
-                $sortie->addParticipant($participant);
+            $dateFin = (clone $dateDebut)->add(new \DateInterval("PT0H" . $duree . "M"));
+            $dateHistorisation = (clone $dateDebut)->add(new \DateInterval("P1M"));
+            $now = new \DateTimeImmutable('now');
+
+            if($now < $dateCloture){
+                $rand = mt_rand(1, 100);
+
+                if ($rand <= 70) {
+                    $sortie->setEtat($this->getReference("etat-Ouverte", Etat::class));
+                } elseif ($rand <= 90) {
+                    $sortie->setEtat($this->getReference("etat-En création", Etat::class));
+                } else {
+                    $sortie->setEtat($this->getReference("etat-Annulée", Etat::class));
+                }
+            }elseif($now < $dateDebut){
+                    $sortie->setEtat($this->getReference("etat-Clôturée", Etat::class));
+            }elseif ($now < $dateFin){
+                $sortie->setEtat($this->getReference("etat-En cours", Etat::class));
+            }elseif ($now < $dateHistorisation){
+                $sortie->setEtat($this->getReference("etat-Terminée", Etat::class));
+            }else {
+                $sortie->setEtat($this->getReference("etat-Historisée", Etat::class));
+            }
+
+            if ($sortie->getEtat()->getLibelle() !== "En création") {
+                $randomParticipants = $faker->randomElements($allParticipants, $faker->numberBetween(0, min($jauge, count($allParticipants))));
+                foreach ($randomParticipants as $participant) {
+                    $sortie->addParticipant($participant);
+                }
+            }
+
+            if ($sortie->getEtat()->getLibelle() === "Ouverte" && $sortie->getJauge() === $sortie->getParticipants()->count()){
+                $sortie->setEtat($this->getReference("etat-Clôturée", Etat::class));
             }
 
             $manager->persist($sortie);
