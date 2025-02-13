@@ -25,7 +25,7 @@ class SortieController extends AbstractController
 
         $data = new SearchData();
 
-        $searchForm = $this->createForm(SearchForm::class, $data);
+        $searchForm = $this->createForm(SearchForm::class, $data, ['user' => $user]);
         $searchForm->handleRequest($request);
 
         $errors = $validator->validate($data);

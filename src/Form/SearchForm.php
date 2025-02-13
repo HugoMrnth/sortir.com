@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Data\SearchData;
 
+use App\Entity\Participant;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,12 +19,15 @@ class SearchForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $user = $options['user'];
+
         $builder
             ->add('site', EntityType::class, [
                 'label' => 'Site : ',
                 'required' => false,
                 'class' => Site::class,
                 'choice_label' => 'nom',
+                'data' => $user->getSite(),
                 'placeholder' => false,
                 'attr' => [
                     'class' => 'p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500',
@@ -83,6 +87,7 @@ class SearchForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SearchData::class,
+            'user' => Participant::class,
             'method' => 'GET',
         ]);
     }
