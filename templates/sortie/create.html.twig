@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container w-full mx-auto py-6 bg-white rounded-lg shadow">
+        <h2 class="text-xl font-semibold text-center">Ajouter une sortie</h2>
+        {{ form_start(form, {'action': path('sortie_create'), 'method': 'POST', attr: {'novalidate': 'novalidate'}}) }}
+        <div class="text-red-500 mt-2">
+            {{ form_errors(form.nom, ) }}
+            {{ form_errors(form.dateDebut) }}
+            {{ form_errors(form.dateCloture) }}
+            {{ form_errors(form.jauge) }}
+            {{ form_errors(form.duree) }}
+            {{ form_errors(form.description) }}
+            {{ form_errors(form.lieu) }}
+        </div>
+        <div class="grid grid-cols-2 gap-4 justify-items-center">
+            <div class="flex flex-col mt-5">
+                <p class="text-md my-5">Nom de la sortie: <span class="ml-4">{{ form_widget(form.nom) }}</span></p>
+                <p class="text-md my-5">Date et heure de la sortie: <span class="ml-4">{{ form_widget(form.dateDebut)}}</span></p>
+                <p class="text-md my-5">Date limit d'inscription: <span class="ml-4"> {{ form_widget(form.dateCloture)}}</span></p>
+                <p class="text-md my-5">Nombre de places: <span class="ml-4">{{ form_widget(form.jauge)}} place</span></p>
+                <p class="text-md my-5">Durée: <span class="ml-4"> {{ form_widget(form.duree)}} minutes</span></p>
+                <p class="text-md my-5">Description et infos: <span class="ml-4">{{ form_widget(form.description)}}</span></p>
+            </div>
+            <div class="flex flex-col mt-5">
+                <p class="text-md my-5">Lieu: <span class="ml-4">{{ form_widget(form.lieu)}}</span></p>
+                <p class="text-md my-5">Rue: <span class="ml-4">{{ form_widget(form.lieu_rue)}}</span></p>
+                <p class="text-md my-5">Ville: <span class="ml-4">{{ form_widget(form.lieu_ville)}}</span></p>
+                <p class="text-md my-5">Code postal: <span class="ml-4">{{ form_widget(form.lieu_cp)}}</span></p>
+                <p class="text-md my-5">Latitude: <span class="ml-4">{{ form_widget(form.lieu_latitude)}}</span></p>
+                <p class="text-md my-5">Longitude: <span class="ml-4">{{ form_widget(form.lieu_longitude)}}</span></p>
+            </div>
+        </div>
+        <button type="submit" class="text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">modifier</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/lieuDisplayinfos.js') }}"></script>
+{% endblock %}
+
+

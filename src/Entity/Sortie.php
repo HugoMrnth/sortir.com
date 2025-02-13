@@ -21,6 +21,8 @@ class Sortie
     private ?string $nom = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "Please give a name to your idea")]
+    #[Assert\DateTime(message:"La date de début doit être une date valide.")]
     private ?\DateTimeImmutable $dateDebut = null;
 
     #[ORM\Column]
@@ -63,6 +65,7 @@ class Sortie
     {
         $this->participants = new ArrayCollection();
     }
+
 
     //TODO ManyToOne organisateur  et ManyToMany participants
 
