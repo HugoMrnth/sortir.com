@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-//#[Route('/sorties')]
+
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'sortie_list', methods: ['GET'])]
@@ -47,7 +47,7 @@ class SortieController extends AbstractController
             'errors' => $errors,
         ]);
     }
-    #[Route('/lieu/{id}', name: 'sortie_lieu', methods: ['GET'])]
+    #[Route('/sorties/lieu/{id}', name: 'sortie_lieu', methods: ['GET'])]
     public function getLieuData(Lieu $lieu): JsonResponse
     {
         return new JsonResponse([
@@ -60,7 +60,7 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'sortie_show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/sorties/{id}', name: 'sortie_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function showSortie($id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
@@ -69,7 +69,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: 'sortie_create', methods: ['GET', 'POST'])]
+    #[Route('/sorties/create', name: 'sortie_create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $sortie = new Sortie();

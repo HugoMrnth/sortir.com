@@ -4,43 +4,43 @@
 
     <div class="text-l font-semibold flex flex-row-reverse mr-5">
         <div>
-        <div class="flex">Date du jour : {{ "now"|date("d/m/Y") }}</div>
-        <div class="flex relative">Participant : {{ user.prenom }} {{ user.nom|first|upper ~ '.' }}</div>
+            <div class="flex">Date du jour : {{ "now"|date("d/m/Y") }}</div>
+            <div class="flex relative">Participant : {{ user.prenom }} {{ user.nom|first|upper ~ '.' }}</div>
         </div>
     </div>
 
-    {% include 'sortie/_filter.html.twig' with {form: searchForm} only%}
+    {% include 'sortie/_filter.html.twig' with {form: searchForm} only %}
 
     {# Tableau des résultats   #}
     <div class="shadow-md sm:rounded-lg flex-grow overflow-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 z-10">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Nom de la sortie
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Date de la sortie
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Date de clôture
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nb inscrits/jauge
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        État
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Mes inscriptions
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Organisateur
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Actions
-                    </th>
-                </tr>
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Nom de la sortie
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date de la sortie
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date de clôture
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Nb inscrits/jauge
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    État
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Mes inscriptions
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Organisateur
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+            </tr>
             </thead>
             <tbody>
             {% for sortie in sorties %}
@@ -103,10 +103,11 @@
 
 
     <div class="flex mt-4">
-        <button type="submit"
-                class="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">
-            Créer une sortie
-        </button>
+        <a href="{{ path('sortie_create') }}">
+            <button class="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">
+                Créer une sortie
+            </button>
+        </a>
     </div>
 
 {% endblock %}
