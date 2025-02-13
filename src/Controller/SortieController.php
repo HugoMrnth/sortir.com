@@ -20,8 +20,8 @@ class SortieController extends AbstractController
     public function list(SortieRepository $sortieRepository, Request $request, ValidatorInterface $validator): Response
     {
         $user = $this->getUser();
-        //TODO sorties site = site.user && etat != historisé + attention select automatiquement sur site correspondant (affichage)
-        $sorties = $sortieRepository->findBy(['site' => $user->getSite()->getId()]);
+
+        $sorties = $sortieRepository->findSortiesList($user);
 
         $data = new SearchData();
 

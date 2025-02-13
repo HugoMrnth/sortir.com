@@ -18,15 +18,29 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    /**
-     * Retrieves sorties linked to a search
-     * @return Sortie[]
-     */
+    public function findSortiesList(UserInterface $user): array
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle != :etatHistorisee')
+            ->setParameter('etatHistorisee', 'Historisée')
+            ->andWhere('s.site = :userSite')
+            ->setParameter('userSite', $user->getSite()->getId());
+
+        return $query->getQuery()->getResult();
+    }
+
+
     public function findSearch(SearchData $data, UserInterface $user): array
     {
         $query = $this
             ->createQueryBuilder('s')
-            ->select('s');
+            ->select('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle != :etatHistorisee')
+            ->setParameter('etatHistorisee', 'Historisée');
 
         if(!empty($data->site)){
             $query = $query
