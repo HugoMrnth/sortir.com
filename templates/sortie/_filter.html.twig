@@ -30,6 +30,11 @@
                     {{ form_widget(form.andDate) }}
                 </div>
             </div>
+            <div>
+                {% for error in form.betweenDate.vars.errors|merge(form.andDate.vars.errors) %}
+                    <div class="text-red-500 text-sm">{{ error.message }}</div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
