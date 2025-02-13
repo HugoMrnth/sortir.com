@@ -82,12 +82,13 @@ class SortieRepository extends ServiceEntityRepository
 
             $query = $query
                 ->andWhere($query->expr()->notIn('s.id', $subQuery->getDQL()))
+                ->setParameter('user', $user)
+                ->andWhere('s.organisateur != :user')
                 ->setParameter('user', $user);
         }
 
         if($data->isPast){
             $query = $query
-                ->join('s.etat', 'e')
                 ->andWhere('e.libelle = :etatTerminee')
                 ->setParameter('etatTerminee', 'Terminée');
         }

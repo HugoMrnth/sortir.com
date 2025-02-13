@@ -67,7 +67,9 @@ class SortieFixtures extends Fixture implements DependentFixtureInterface
             if ($sortie->getEtat()->getLibelle() !== "En création") {
                 $randomParticipants = $faker->randomElements($allParticipants, $faker->numberBetween(0, min($jauge, count($allParticipants))));
                 foreach ($randomParticipants as $participant) {
-                    $sortie->addParticipant($participant);
+                    if($participant !== $organisateur){
+                        $sortie->addParticipant($participant);
+                    }
                 }
             }
 

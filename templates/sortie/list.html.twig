@@ -64,16 +64,29 @@
                         {{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom|first|upper ~ '.' }}
                     </td>
                     <td class="px-6 py-4">
-                        {# TODO :
-                            si utilisateur connecté = organisateur
-                                si sortie.etat = "en création" alors afficher "Modifier" et "Publier"
-                                sinon si sortie.etat = "Ouvert" alors afficher "Afficher" et "Annuler"
-                            sinon afficher "Afficher"
-                            si utilisateur connecté est dans sortie.participants alors afficher "Se désister"
-                            sinon si état < clôturé et inscription < jauge afficher "S'inscrire"
-                        #}
-                        <a href="#"
-                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        {% if sortie.organisateur.id == user.id %}
+                            {% if sortie.etat.libelle == "En création" %}
+                                <a href="#"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                                <span class="mx-4">-</span>
+                                <a href="#"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Publier</a>
+                            {% elseif sortie.etat.libelle == "Ouverte" %}
+                                <a href="#"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Annuler</a>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if sortie.etat.libelle == "Ouverte" %}
+                            {% if sortie.participants.contains(user) %}
+                                <a href="#"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Se désister</a>
+                            {% elseif sortie.organisateur.id != user.id %}
+                                <a href="#"
+                                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">S'inscrire</a>
+                            {% endif %}
+                        {% endif %}
+
                     </td>
                 </tr>
             {% endfor %}
