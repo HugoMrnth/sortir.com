@@ -1,0 +1,62 @@
+{% form_theme form 'tailwind_2_layout.html.twig' %}
+
+{{ form_start(form) }}
+<div class="flex">
+    <div class="w-1/3 p-4">
+        <div class="flex items-center">
+            {{ form_label(form.site) }}
+            <span class="mx-4"> {{ form_widget(form.site) }} </span>
+        </div>
+        <div class="relative mt-3">
+            {{ form_label(form.nomSortie) }}
+            <div class="relative mt-1">
+                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                {{ form_widget(form.nomSortie) }}
+            </div>
+        </div>
+        <div class="relative mt-3">
+            <div id="date-range-picker" date-rangepicker class="flex items-center">
+                <span class="mr-4">Entre</span>
+                <div class="relative">
+                    {{ form_widget(form.betweenDate) }}
+                </div>
+                <span class="mx-4">et</span>
+                <div class="relative">
+                    {{ form_widget(form.andDate) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-1/3 p-4 flex flex-col justify-center">
+        <div class="flex items-center mb-4">
+            {{ form_widget(form.isOrganisateur) }}
+            {{ form_label(form.isOrganisateur) }}
+        </div>
+        <div class="flex items-center mb-4">
+            {{ form_widget(form.isInscrit) }}
+            {{ form_label(form.isInscrit) }}
+        </div>
+        <div class="flex items-center mb-4">
+            {{ form_widget(form.isNotInscrit) }}
+            {{ form_label(form.isNotInscrit) }}
+        </div>
+        <div class="flex items-center mb-4">
+            {{ form_widget(form.isPast) }}
+            {{ form_label(form.isPast) }}
+        </div>
+    </div>
+
+    <div class="w-1/3 p-4 flex items-center justify-center">
+        <button type="submit"
+                class="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">
+            Rechercher
+        </button>
+    </div>
+</div>
+{{ form_end(form) }}

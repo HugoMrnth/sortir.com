@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Data\SearchData;
+use App\Form\SearchForm;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -13,15 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'sortie_list', methods: ['GET'])]
-    public function list(SortieRepository $sortieRepository): Response
+    public function list(SortieRepository $sortieRepository, Request $request): Response
     {
-        //TODO appeler requête pour trouver toutes les sorties par état "ouverte" (revoir la doc client)
-        //$sorties = $sortieRepository->findBy(['no_etat' => 2]);
-        $sorties = $sortieRepository->findAll();
+        $user = $this->getUser();
+        //TODO sorties site = site.user && etat != historisé + attention select automatiquement sur site correspondant (affichage)
+        //$sorties = $sortieRepository->findBy(['site' => $user->getSite()->getId()]);
 
-        //TODO passer les sorties à twig
+        $data = new SearchData();
+
+        $searchForm = $this->createForm(SearchForm::class, $data);
+        $searchForm->handleRequest($request);
+
+        $sorties = $sortieRepository->findSearch($data, $user);
+
         return $this->render('sortie/list.html.twig', [
-            'sorties' => $sorties
+            'sorties' => $sorties,
+            'searchForm' => $searchForm->createView(),
         ]);
     }
 

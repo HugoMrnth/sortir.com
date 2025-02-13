@@ -27,7 +27,7 @@ class ParticipantFixtures extends Fixture implements DependentFixtureInterface
                 ->setUsername($faker->userName)
                 ->setEmail($faker->email)
                 ->setRoles(['ROLE_USER'])
-                ->setPassword($this->userPasswordHasher->hashPassword($participant, $faker->password))
+                ->setPassword($this->userPasswordHasher->hashPassword($participant, 'root'))
                 ->setNom($faker->lastName())
                 ->setPrenom($faker->firstName())
                 ->setTelephone($faker->phoneNumber())
