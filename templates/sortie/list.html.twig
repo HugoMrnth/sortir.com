@@ -2,14 +2,7 @@
 
 {% block body %}
 
-    {# TODO : date du jour + Participant à ajouter  #}
-    <div class="flex">
-        <h1> Filtrer les sorties </h1>
-    </div>
-
-{#    <div class="flex">#}
-        {% include 'sortie/_filter.html.twig' with {form: searchForm} only%}
-{#    </div>#}
+    {% include 'sortie/_filter.html.twig' with {form: searchForm} only%}
 
     {# Tableau des résultats   #}
     <div class="shadow-md sm:rounded-lg flex-grow overflow-auto">
@@ -62,8 +55,10 @@
                     <td class="px-6 py-4">
                         {{ sortie.etat.libelle }}
                     </td>
-                    <td class="px-6 py-4">
-                        {# TODO : si utilisateur conneté dans sortie.participants alors afficher X dans colonne #}
+                    <td class="px-20 py-4">
+                        {% if sortie.participants.contains(user) %}
+                            X
+                        {% endif %}
                     </td>
                     <td class="px-6 py-4">
                         {{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom|first|upper ~ '.' }}
@@ -87,8 +82,11 @@
     </div>
 
 
-    <div class="flex">
-        <p>BOUTON Créer une sortie</p>
+    <div class="flex mt-4">
+        <button type="submit"
+                class="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">
+            Créer une sortie
+        </button>
     </div>
 
 {% endblock %}
