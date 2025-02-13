@@ -5,8 +5,8 @@
     <h2 class="text-2xl font-semibold"> Filtrer les sorties </h2>
 </div>
 
-<div class="flex">
-    <div class="w-1/3 p-4">
+<div class="flex flex-wrap lg:flex-nowrap">
+    <div class="w-full lg:w-1/3 p-4">
         <div class="flex items-center">
             {{ form_label(form.site) }}
             <span class="mx-4"> {{ form_widget(form.site) }} </span>
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="w-1/3 p-4 flex flex-col justify-center">
+    <div class="w-full lg:w-1/3 p-4 flex flex-col justify-center ml-4">
         <div class="flex items-center mb-4">
             {{ form_widget(form.isOrganisateur) }}
             {{ form_label(form.isOrganisateur) }}
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="w-1/3 p-4 flex items-center justify-center">
+    <div class="w-full lg:w-1/3 p-4  flex items-center justify-center">
         <button type="submit"
                 class="px-6 py-3.5 text-base font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center">
             Rechercher

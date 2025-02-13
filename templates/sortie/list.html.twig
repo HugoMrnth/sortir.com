@@ -2,38 +2,45 @@
 
 {% block body %}
 
+    <div class="text-l font-semibold flex flex-row-reverse mr-5">
+        <div>
+        <div class="flex">Date du jour : {{ "now"|date("d/m/Y") }}</div>
+        <div class="flex relative">Participant : {{ user.prenom }} {{ user.nom|first|upper ~ '.' }}</div>
+        </div>
+    </div>
+
     {% include 'sortie/_filter.html.twig' with {form: searchForm} only%}
 
     {# Tableau des résultats   #}
     <div class="shadow-md sm:rounded-lg flex-grow overflow-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nom de la sortie
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Date de la sortie
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Date de clôture
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nb inscrits/jauge
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    État
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Mes inscriptions
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Organisateur
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Actions
-                </th>
-            </tr>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 z-10">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nom de la sortie
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date de la sortie
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date de clôture
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nb inscrits/jauge
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        État
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Mes inscriptions
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Organisateur
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
+                </tr>
             </thead>
             <tbody>
             {% for sortie in sorties %}
@@ -44,10 +51,10 @@
                         </a>
                     </th>
                     <td class="px-6 py-4">
-                        {{ sortie.dateDebut | date("d-m-Y H:i") }}
+                        {{ sortie.dateDebut | date("d/m/Y H:i") }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ sortie.dateCloture | date("d-m-Y G:i") }}
+                        {{ sortie.dateCloture | date("d/m/Y H:i") }}
                     </td>
                     <td class="px-6 py-4">
                         {{ sortie.participants | length }} / {{ sortie.jauge }}
