@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
@@ -20,15 +21,16 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(name: "pseudo", length: 180)]
+    #[Assert\NotBlank(message: "Le pseudo ne peut pas être vide.")]
     #[Assert\Length(
         min: 3,
         max: 50,
-        minMessage: "Minimum 3 characters please!", maxMessage: "Maximum 50 characters please!"
+        minMessage: "Le pseudo doit faire 3 characters minimum", maxMessage: "Le pseudo doit faire 50 characters maximum"
     )]
     #[Assert\Regex(
         pattern: '/^[a-z0-9_-]+$/i',
-        message: 'Please use only letters, numbers, underscores and dashes!' )]
-    private ?string $username = null;
+        message: 'Seuls les lettres, nombres et underscores sont autorisés' )]
+    private string $username;
 
     /**
      * @var list<string> The user roles
@@ -43,15 +45,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'email ne peut pas être vide.")]
+    #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prenom ne peut pas être vide.")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le telephone ne peut pas être vide.")]
     private ?string $telephone = null;
 
 
