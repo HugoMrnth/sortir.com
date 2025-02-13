@@ -21,15 +21,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(name: "pseudo", length: 180)]
-    #[Assert\NotBlank(message: "Username ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le pseudo ne peut pas être vide.")]
     #[Assert\Length(
         min: 3,
         max: 50,
-        minMessage: "Minimum 3 characters please!", maxMessage: "Maximum 50 characters please!"
+        minMessage: "Le pseudo doit faire 3 characters minimum", maxMessage: "Le pseudo doit faire 50 characters maximum"
     )]
     #[Assert\Regex(
         pattern: '/^[a-z0-9_-]+$/i',
-        message: 'Please use only letters, numbers, underscores and dashes!' )]
+        message: 'Seuls les lettres, nombres et underscores sont autorisés' )]
     private string $username;
 
     /**
@@ -45,15 +45,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'email ne peut pas être vide.")]
+    #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prenom ne peut pas être vide.")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le telephone ne peut pas être vide.")]
     private ?string $telephone = null;
 
 
